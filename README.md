@@ -1,48 +1,68 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/Quantum_Computing-8A2BE2?style=flat" />
-  <img src="https://img.shields.io/badge/QPanda3-Origin_Quantum-6A0DAD?style=flat" />
+  <img src="https://app-eta-seven-61.vercel.app/banner-quantum.svg" width="900"/>
 </p>
 
-<h1 align="center">quantum-experiments</h1>
-<p align="center">Quantum computing algorithms implemented in Python and executed on a real quantum cloud backend (Origin Quantum / QPanda3).</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Quantum_Computing-8B5CF6?style=flat"/>
+  <img src="https://img.shields.io/badge/QPanda3-Origin_Quantum-06B6D4?style=flat"/>
+  <img src="https://img.shields.io/badge/72--qubit_hardware-real-A78BFA?style=flat"/>
+</p>
+
+<h2 align="center">quantum-experiments — квантовые алгоритмы на реальном железе</h2>
+<p align="center">Реализация квантовых алгоритмов на Python с запуском на настоящем 72-кубитном квантовом компьютере через облако Origin Quantum.</p>
 
 ---
 
-## Algorithms
+## Алгоритм Гровера
 
-### Grover's Search Algorithm
-Demonstrates quadratic speedup over classical search. Finds a target state among 4 possibilities (2 qubits) in fewer iterations than brute force.
+Квантовый поиск с квадратичным ускорением по сравнению с классическим перебором.
 
 ```
-Steps:
-1. Initialize qubits in superposition (H gate)
-2. Apply oracle — marks the target state |11⟩
-3. Apply diffusion operator — amplifies the target
-4. Measure — collapses to the answer with high probability
+Шаг 1 — Инициализация суперпозиции
+  H(0), H(1)  →  |ψ⟩ = ¼(|00⟩ + |01⟩ + |10⟩ + |11⟩)
+  Все 4 состояния равновероятны (25% каждое)
+
+Шаг 2 — Оракул
+  Помечает целевое состояние |11⟩ знаком минус
+  Реализован через CZ-гейт (H + CNOT)
+
+Шаг 3 — Диффузия Гровера
+  Усиливает амплитуду помеченного состояния
+  Подавляет остальные
+
+Шаг 4 — Измерение
+  |11⟩ выпадает с вероятностью ~100%
+  Классический перебор: 4 проверки → квантовый: 1
 ```
 
-### Quantum Random Number Generation
-Generates true random numbers using quantum superposition and measurement collapse — fundamentally unpredictable unlike classical PRNGs.
+## Квантовый генератор случайных чисел
 
-### Classical vs Quantum Comparison
-Side-by-side benchmark of classical search vs Grover's algorithm showing the probability advantage at scale.
+Использует фундаментальную случайность квантовой механики — коллапс суперпозиции при измерении. В отличие от классических ГПСЧ, результат **принципиально непредсказуем**.
 
-## Tech Stack
+## Сравнение классика vs квантовый
+
+| | Классический поиск | Алгоритм Гровера |
+|---|---|---|
+| N элементов | O(N) | O(√N) |
+| 4 элемента | 4 проверки | ~1 итерация |
+| 1 000 000 | 1 000 000 | ~1 000 |
+
+## Стек
 
 - **Python 3**
-- **QPanda3** — quantum SDK by Origin Quantum
-- Runs on real 72-qubit quantum cloud hardware
+- **QPanda3** — квантовый SDK от Origin Quantum
+- Запуск на **реальном 72-кубитном** квантовом компьютере в облаке
 
-## Files
+## Файлы
 
-| File | Description |
-|------|-------------|
-| `grover.py` | Grover's search algorithm (2 qubits) |
-| `quantum_random.py` | Quantum random number generator |
-| `comparison.py` | Classical vs quantum benchmark |
+| Файл | Описание |
+|------|----------|
+| `grover.py` | Алгоритм Гровера (2 кубита) |
+| `quantum_random.py` | Квантовый генератор случайных чисел |
+| `comparison.py` | Сравнение классики и квантового подхода |
 
-## Setup
+## Запуск
 
 ```bash
 pip install pyqpanda3
